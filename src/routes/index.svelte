@@ -2,7 +2,7 @@
 	async function fetchPosts() {
 		const res = await fetch('/posts');
 		if (res.ok) {
-			return await res.json();
+			return res.json();
 		}
 		throw new Error(res.statusText);
 	}
