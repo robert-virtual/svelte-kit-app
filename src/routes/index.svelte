@@ -18,5 +18,5 @@
 		</div>
 	{/each}
 {:catch err}
-	<p>Error</p>
+	<p>Ups algo salio mal</p>
 {/await}
