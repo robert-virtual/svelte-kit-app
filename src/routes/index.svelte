@@ -1,2 +1,22 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+	async function fetchPosts() {
+		const res = await fetch('/posts');
+		if (res.ok) {
+			return await res.json();
+		}
+		throw new Error(res.statusText);
+	}
+	let postsPromise = fetchPosts();
+</script>
+
+{#await postsPromise}
+	<p>cargando...</p>
+{:then data}
+	{#each data.posts as post}
+		<div>
+			<p>{post.content}</p>
+		</div>
+	{/each}
+{:catch err}
+	<p>Error</p>
+{/await}
