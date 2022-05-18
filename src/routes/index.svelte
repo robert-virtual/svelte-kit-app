@@ -1,22 +1,16 @@
 <script>
-	async function fetchPosts() {
-		const res = await fetch('/posts');
-		if (res.ok) {
-			return res.json();
-		}
-		throw new Error(res.statusText);
-	}
-	let postsPromise = fetchPosts();
+	import { user } from '../stores/userStore';
+	export let posts = [{ content: '' }];
 </script>
 
-{#await postsPromise}
-	<p>cargando...</p>
-{:then data}
-	{#each data.posts as post}
-		<div>
-			<p>{post.content}</p>
-		</div>
-	{/each}
-{:catch err}
-	<p>Ups algo salio mal</p>
-{/await}
+<pre>
+	{JSON.stringify($user, null, 2)}
+</pre>
+<input type="text" bind:value={$user.name} />
+<input type="number" bind:value={$user.age} />
+{#each posts as post}
+	<div class="p-3 bg-gray-100 my-2">
+		<p>{post.content}</p>
+		<p>{post.user.name}</p>
+	</div>
+{/each}
